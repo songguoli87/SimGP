@@ -30,13 +30,11 @@ else
   approx = 'ftc'; % no approximation
 end
 
-%%  Learn Initialisation through NCCA
-
+%%  Learn Initialisation through CCA
 fprintf('performing svd...\n');
 
 [~,~,v] = svds(I_tr,128);
 X = I_tr * v;
-
 [~,~,v] = svds(T_tr,10);
 Y = T_tr * v;
     
@@ -64,9 +62,6 @@ Xs = (1/2).*(Xcca+Ycca);
 X_init = Xs ;
 X_init = (X_init-repmat(mean(X_init),size(X_init,1),1))./repmat(std(X_init),size(X_init,1),1);
 clear Kx Ky Xcca Ycca A B;
-
-% q = 9; % 1:12
-% X_init = X_init(:,1:q);
 
 q = size(X_init,2);
 
@@ -105,6 +100,7 @@ q = size(X_init,2);
 %   options_constraint.dim = 1:model.q;
 %   options_constraint.SXY = SXY_tr;
 %   model = sgplvmAddConstraint(model,options_constraint);
+
   %%  Train SGPLVM model
  nr_iters = 500;
  model = sgplvmOptimise(model,true,nr_iters,false,false);
