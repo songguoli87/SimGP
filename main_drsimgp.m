@@ -67,8 +67,8 @@ X_init = (X_init-repmat(mean(X_init),size(X_init,1),1))./repmat(std(X_init),size
 clear Kx Ky Xcca Ycca A B;
 
 q = size(X_init,2);
-%% Create SGPLVM model
 
+%% Create SGPLVM model
   options_y = fgplvmOptions(approx);
   options_y.optimiser = 'scg2';
   options_y.scale2var1 = true;
@@ -132,9 +132,9 @@ for i=1:length(testInd)
     XZpred(curInd,:) = x_star;
 end  
  save(sprintf('XZpred_pascal_drsimgp.mat'), 'XZpred');
- %% text query
-
-    Ypred = zeros(length(testInd), size(model.comp{obsMod}.y,2));
+ 
+%% text query
+Ypred = zeros(length(testInd), size(model.comp{obsMod}.y,2));
 for i=1:length(testInd)
     curInd = testInd(i);
     fprintf('# Testing indice number %d ', curInd);
@@ -143,12 +143,8 @@ for i=1:length(testInd)
     z_star = Yts{infMod}(curInd,:);
     index_in = 2;
     index_out = setdiff(1:2, index_in);        
-    % Find p(X_* | Y_*) which is approximated by q(X_*)
     x_star = sgplvmPointOut(model,index_in,index_out,z_star);       
     XYpred(curInd,:) = x_star;
-%     x_cur = x_star;
-%     YpredMu = gpPosteriorMeanVar(model.comp{obsMod}, x_cur);
-%     Ypred(curInd,:) = YpredMu(1,:);
 end  
 save(sprintf('XYpred_pascal_drsimgp.mat'), 'XYpred');
 fprintf(' Finish testing.\n')
