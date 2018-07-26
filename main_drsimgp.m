@@ -9,7 +9,6 @@ dataSetNames = 'pascal';
 numberOfDatasets=2;
 load('data/pascal1k_similarity_euc.mat');
 
-
 Y_train = SX_tr_euc;
 Z_train = SY_tr_euc;
 Yts{1} = SX_te_euc;
@@ -31,7 +30,7 @@ else
   approx = 'ftc'; % no approximation
 end
 
-%%  Learn Initialisation through NCCA
+%%  Learn Initialisation through CCA
 % 
 load('data/pascal1K.mat');
  
@@ -39,7 +38,6 @@ fprintf('performing svd...\n');
 
 [~,~,v] = svds(I_tr,128);
 X = I_tr * v;
-
 [~,~,v] = svds(T_tr,10);
 Y = T_tr * v;
     
@@ -68,8 +66,6 @@ X_init = Xs ;
 X_init = (X_init-repmat(mean(X_init),size(X_init,1),1))./repmat(std(X_init),size(X_init,1),1);
 clear Kx Ky Xcca Ycca A B;
 
-% q = 4; 
-% X_init = X_init(:,1:q);
 q = size(X_init,2);
 %% Create SGPLVM model
 
