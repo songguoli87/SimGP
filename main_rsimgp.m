@@ -123,16 +123,15 @@ for i=1:length(testInd)
     index_in = 1;
     index_out = setdiff(1:2, index_in);        
     x_star = sgplvmPointOut(model,index_in,index_out,y_star);         
-     XZpred(curInd,:) = x_star;
+    XZpred(curInd,:) = x_star;
 end  
    save(sprintf('results/XZpred_pascal_simgp.mat'), 'XZpred');
- %% text query
-
-    Ypred = zeros(length(testInd), size(model.comp{obsMod}.y,2));
+   
+%% text query
+Ypred = zeros(length(testInd), size(model.comp{obsMod}.y,2));
 for i=1:length(testInd)
     curInd = testInd(i);
     fprintf('# Testing indice number %d ', curInd);
-
     fprintf('taken from the text test set\n');
     z_star = Yts{infMod}(curInd,:);
     index_in = 2;
@@ -144,7 +143,7 @@ end
 save(sprintf('results/XYpred_pascal_simgp.mat'), 'XYpred');
 fprintf(' Finish testing.\n')
     
-%%    
+%% cross-modal retrieval    
 
 opt.metric='NC';
 opt.rm=0;
