@@ -149,7 +149,7 @@ end
 save(sprintf('XYpred_pascal_drsimgp.mat'), 'XYpred');
 fprintf(' Finish testing.\n')
     
-%%    
+%% cross-modal retrieval     
 
 opt.metric='NC';
 opt.rm=0;
